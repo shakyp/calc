@@ -5,13 +5,13 @@ public class Main {
 
     static String text; // Входящая строка
     static String textProof; // Необходима для проверки вхоядщей строки на содержание арабсикх чисел
+    static String answer; // Необходима для получения ответа
 
     public static void main(String[] args) {
 
         System.out.println("""
 
                 Input:""");
-
         try (Scanner scanner = new Scanner(System.in)) {
             text = scanner.nextLine();
         } catch (Exception e) {
@@ -20,22 +20,56 @@ public class Main {
 
         textProof = text;
 
-        valid(text);
+        try {
 
-        System.out.println("""
+//            Проверка ввода на валидность
+            if (!valid(text)) {
+                System.out.println("""
 
-                                   Output:
-                                   """ + calc(text));
+                        Output:""");
+                throw new IllegalArgumentException("Не верный ввод.");
+            }
+
+//            Запуск калькулятора
+            calc(text);
+
+//            Проверка на соответсвие входящщей строке
+            if (text.equals(textProof)) {
+                System.out.println("""
+
+                                           Output:
+                                           """ + answer);
+            } else {
+                try {
+
+//                    Проверака результата для римскоих чисел
+                    if (Integer.parseInt(answer) < 1) {
+                        System.out.println("""
+
+                                Output:""");
+                        throw new IllegalArgumentException("Результатом работы калькулятора с римскими числами могут быть только числа больше нуля.");
+                    } else {
+                        System.out.println("""
+
+                                                   Output:
+                                                   """ + reverseConvert(answer));
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+        }
+
     }
 
-    public static String calc(String input) {
+    public static void calc(String input) {
 
         int firstElement;
         String secondElement;
         int thirdEElement;
         String[] arr;
-
-        String answer;
 
         if (valid(input)) {
             arr = input.split(" ");
@@ -52,19 +86,7 @@ public class Main {
                 answer = String.valueOf(firstElement * thirdEElement);
             } else if (Objects.equals(secondElement, "/")) {
                 answer = String.valueOf(firstElement / thirdEElement);
-            } else {
-                return """
-                        throws Exception""";
             }
-        } else {
-            return """
-                    throws Exception""";
-        }
-
-        if (input.equals(textProof)) {
-            return answer;
-        } else {
-            return reverseConvert(answer);
         }
     } // Метод разбирает ввод на составные части и производит математическую операцию
 
@@ -207,13 +229,8 @@ public class Main {
 
     public static String reverseConvert(String input) {
 
-        if (Integer.parseInt(input) < 1) {
-            return """
-                    throws Exception
-                    """;
-        }
-
         String[] romanNumerals = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "L", "C"};
+
 
         int numUnits = Integer.parseInt(input) - 1;
         if (Integer.parseInt(input) < 11) {
@@ -226,6 +243,7 @@ public class Main {
             String[] arr = input.split("");
 
             StringBuilder str = new StringBuilder();
+
 //          от 11 до 19
             if (Integer.parseInt(arr[0]) < 2) {
                 str.append(romanNumerals[9].repeat(Math.max(0, Integer.parseInt(arr[0]))));
