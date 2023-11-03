@@ -5,7 +5,6 @@ public class Main {
 
     static String text; // Входящая строка
     static String textProof; // Необходима для проверки вхоядщей строки на содержание арабсикх чисел
-    static String answer; // Необходима для получения ответа
 
     public static void main(String[] args) {
 
@@ -30,8 +29,8 @@ public class Main {
                 throw new IllegalArgumentException("Не верный ввод.");
             }
 
-//            Запуск калькулятора
-            calc(text);
+//            Запуск калькулятора и присвоение результата вычислений
+           String answer = calc(text);
 
 //            Проверка на соответсвие входящщей строке
             if (text.equals(textProof)) {
@@ -64,12 +63,14 @@ public class Main {
 
     }
 
-    public static void calc(String input) {
+    public static String calc(String input) {
 
         int firstElement;
         String secondElement;
         int thirdEElement;
         String[] arr;
+        
+        String solution = null; 
 
         if (valid(input)) {
             arr = input.split(" ");
@@ -79,15 +80,16 @@ public class Main {
             thirdEElement = Integer.parseInt(arr[2]);
 
             if (Objects.equals(secondElement, "+")) {
-                answer = String.valueOf(firstElement + thirdEElement);
+                solution = String.valueOf(firstElement + thirdEElement);
             } else if (Objects.equals(secondElement, "-")) {
-                answer = String.valueOf(firstElement - thirdEElement);
+                solution = String.valueOf(firstElement - thirdEElement);
             } else if (Objects.equals(secondElement, "*")) {
-                answer = String.valueOf(firstElement * thirdEElement);
+                solution = String.valueOf(firstElement * thirdEElement);
             } else if (Objects.equals(secondElement, "/")) {
-                answer = String.valueOf(firstElement / thirdEElement);
+                solution = String.valueOf(firstElement / thirdEElement);
             }
         }
+        return solution;
     } // Метод разбирает ввод на составные части и производит математическую операцию
 
     public static boolean valid(String input) {
