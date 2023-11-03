@@ -30,7 +30,7 @@ public class Main {
             }
 
 //            Запуск калькулятора и присвоение результата вычислений
-           String answer = calc(text);
+            String answer = calc(text);
 
 //            Проверка на соответсвие входящщей строке
             if (text.equals(textProof)) {
@@ -69,26 +69,25 @@ public class Main {
         String secondElement;
         int thirdEElement;
         String[] arr;
-        
-        String solution = null; 
 
-        if (valid(input)) {
-            arr = input.split(" ");
+        String solution = null;
 
-            firstElement = Integer.parseInt(arr[0]);
-            secondElement = arr[1];
-            thirdEElement = Integer.parseInt(arr[2]);
+        arr = input.split(" ");
 
-            if (Objects.equals(secondElement, "+")) {
-                solution = String.valueOf(firstElement + thirdEElement);
-            } else if (Objects.equals(secondElement, "-")) {
-                solution = String.valueOf(firstElement - thirdEElement);
-            } else if (Objects.equals(secondElement, "*")) {
-                solution = String.valueOf(firstElement * thirdEElement);
-            } else if (Objects.equals(secondElement, "/")) {
-                solution = String.valueOf(firstElement / thirdEElement);
-            }
+        firstElement = Integer.parseInt(arr[0]);
+        secondElement = arr[1];
+        thirdEElement = Integer.parseInt(arr[2]);
+
+        if (Objects.equals(secondElement, "+")) {
+            solution = String.valueOf(firstElement + thirdEElement);
+        } else if (Objects.equals(secondElement, "-")) {
+            solution = String.valueOf(firstElement - thirdEElement);
+        } else if (Objects.equals(secondElement, "*")) {
+            solution = String.valueOf(firstElement * thirdEElement);
+        } else if (Objects.equals(secondElement, "/")) {
+            solution = String.valueOf(firstElement / thirdEElement);
         }
+
         return solution;
     } // Метод разбирает ввод на составные части и производит математическую операцию
 
